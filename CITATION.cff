@@ -1,0 +1,11 @@
+cff-version: 1.2.0
+message: "If you use RSFQ-JEPA, please cite it."
+type: software
+title: "RSFQ-JEPA"
+abstract: "A neural surrogate that predicts SPICE-level electrical properties and design-rule violations of superconducting RSFQ logic cells from their layout and circuit-graph representation, in milliseconds, with calibrated uncertainty."
+authors:
+  - family-names: Henderson
+    given-names: Dylan
+    affiliation: Cogitan
+year: 2026
+url: "https://github.com/CogitanAI/RSFQ-JEPA"

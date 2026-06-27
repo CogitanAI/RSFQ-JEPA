@@ -7,13 +7,14 @@
 *.gguf
 checkpoints/
 weights/
-model/*.pt
+
 # ── Training data / datasets / generated labels ──
 data/
 datasets/
 *.npz
 *.npy
 *.h5
+
 # ── Secrets / keys / env ──
 .env
 .env.*
@@ -23,6 +24,7 @@ api_keys.txt
 *secret*
 *.pem
 *.token
+
 # ── Python ──
 __pycache__/
 *.py[cod]
@@ -30,6 +32,14 @@ __pycache__/
 venv/
 .ipynb_checkpoints/
 *.egg-info/
+
+# ── LaTeX build artifacts ──
+*.aux
+*.out
+*.synctex.gz
+*.fls
+*.fdb_latexmk
+
 # ── OS / editor / misc ──
 .DS_Store
 Thumbs.db

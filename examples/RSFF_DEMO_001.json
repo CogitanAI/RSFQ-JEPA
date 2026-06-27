@@ -1,0 +1,244 @@
+{
+  "cell_id": "RSFF_DEMO_001",
+  "cell_type": "RSFF",
+  "source_pdk": "ColdFlux",
+  "physical_stack": {
+    "process_node": "MIT-LL SFQ5ee+ 250nm",
+    "bounding_box_um": {
+      "x_min": 0,
+      "y_min": 0,
+      "x_max": 16.0,
+      "y_max": 12.0
+    },
+    "layers": [
+      {
+        "layer_name": "M0",
+        "layer_type": "Nb_ground_plane",
+        "z_order": 0,
+        "thickness_nm": 200,
+        "sheet_inductance_pH_sq": 0.09,
+        "geometries": [
+          {
+            "shape_id": "M0_gnd",
+            "shape_type": "rect",
+            "x_um": 0,
+            "y_um": 0,
+            "width_um": 16.0,
+            "height_um": 12.0,
+            "net_name": "gnd",
+            "is_superconducting": true
+          }
+        ]
+      },
+      {
+        "layer_name": "M2",
+        "layer_type": "Nb_wiring",
+        "z_order": 3,
+        "thickness_nm": 200,
+        "sheet_inductance_pH_sq": 0.1,
+        "geometries": [
+          {
+            "shape_id": "W_S",
+            "shape_type": "rect",
+            "x_um": 0.5,
+            "y_um": 8.5,
+            "width_um": 3.0,
+            "height_um": 0.5,
+            "net_name": "set_in",
+            "is_superconducting": true
+          },
+          {
+            "shape_id": "W_R",
+            "shape_type": "rect",
+            "x_um": 0.5,
+            "y_um": 3.5,
+            "width_um": 3.0,
+            "height_um": 0.5,
+            "net_name": "reset_in",
+            "is_superconducting": true
+          },
+          {
+            "shape_id": "W_mid1",
+            "shape_type": "rect",
+            "x_um": 4.5,
+            "y_um": 6.0,
+            "width_um": 3.0,
+            "height_um": 0.5,
+            "net_name": "mid1",
+            "is_superconducting": true
+          },
+          {
+            "shape_id": "W_mid2",
+            "shape_type": "rect",
+            "x_um": 8.5,
+            "y_um": 6.0,
+            "width_um": 3.0,
+            "height_um": 0.5,
+            "net_name": "mid2",
+            "is_superconducting": true
+          },
+          {
+            "shape_id": "W_Q",
+            "shape_type": "rect",
+            "x_um": 12.5,
+            "y_um": 6.0,
+            "width_um": 3.0,
+            "height_um": 0.5,
+            "net_name": "q_out",
+            "is_superconducting": true
+          }
+        ]
+      },
+      {
+        "layer_name": "R1",
+        "layer_type": "PdAu_resistor",
+        "z_order": 4,
+        "thickness_nm": 30,
+        "sheet_inductance_pH_sq": 0.0,
+        "geometries": [
+          {
+            "shape_id": "RB1",
+            "shape_type": "rect",
+            "x_um": 3.6,
+            "y_um": 8.7,
+            "width_um": 0.6,
+            "height_um": 0.4,
+            "net_name": "bias_S",
+            "is_superconducting": false
+          },
+          {
+            "shape_id": "RB2",
+            "shape_type": "rect",
+            "x_um": 3.6,
+            "y_um": 3.7,
+            "width_um": 0.6,
+            "height_um": 0.4,
+            "net_name": "bias_R",
+            "is_superconducting": false
+          }
+        ]
+      }
+    ]
+  },
+  "josephson_junctions": [
+    {
+      "jj_id": "J1",
+      "layer": "J1",
+      "x_um": 4.0,
+      "y_um": 8.9,
+      "diameter_um": 1.354,
+      "area_um2": 1.44,
+      "Ic_uA": 144.0,
+      "Rn_ohm": 5.9,
+      "Ic_spread_pct": 5.0,
+      "beta_c": 0.7,
+      "connected_nets": [
+        "set_in",
+        "mid1"
+      ]
+    },
+    {
+      "jj_id": "J2",
+      "layer": "J1",
+      "x_um": 4.0,
+      "y_um": 3.9,
+      "diameter_um": 1.354,
+      "area_um2": 1.44,
+      "Ic_uA": 144.0,
+      "Rn_ohm": 5.9,
+      "Ic_spread_pct": 5.0,
+      "beta_c": 0.7,
+      "connected_nets": [
+        "reset_in",
+        "mid1"
+      ]
+    },
+    {
+      "jj_id": "J3",
+      "layer": "J1",
+      "x_um": 8.0,
+      "y_um": 6.25,
+      "diameter_um": 1.354,
+      "area_um2": 1.44,
+      "Ic_uA": 144.0,
+      "Rn_ohm": 5.9,
+      "Ic_spread_pct": 5.0,
+      "beta_c": 0.7,
+      "connected_nets": [
+        "mid1",
+        "mid2"
+      ]
+    },
+    {
+      "jj_id": "J4",
+      "layer": "J1",
+      "x_um": 12.0,
+      "y_um": 6.25,
+      "diameter_um": 1.354,
+      "area_um2": 1.44,
+      "Ic_uA": 144.0,
+      "Rn_ohm": 5.9,
+      "Ic_spread_pct": 5.0,
+      "beta_c": 0.7,
+      "connected_nets": [
+        "mid2",
+        "q_out"
+      ]
+    }
+  ],
+  "superconducting_loops": [
+    {
+      "loop_id": "L1",
+      "inductance_pH": 2.8,
+      "jj_ids": [
+        "J1",
+        "J3"
+      ],
+      "betaL": 1.12,
+      "segment_ids": [
+        "W_S",
+        "W_mid1"
+      ],
+      "is_continuous": true,
+      "flux_state": 0
+    },
+    {
+      "loop_id": "L2",
+      "inductance_pH": 2.8,
+      "jj_ids": [
+        "J2",
+        "J3"
+      ],
+      "betaL": 1.12,
+      "segment_ids": [
+        "W_R",
+        "W_mid1"
+      ],
+      "is_continuous": true,
+      "flux_state": 0
+    },
+    {
+      "loop_id": "L3",
+      "inductance_pH": 2.5,
+      "jj_ids": [
+        "J3",
+        "J4"
+      ],
+      "betaL": 1.0,
+      "segment_ids": [
+        "W_mid1",
+        "W_mid2"
+      ],
+      "is_continuous": true,
+      "flux_state": 0
+    }
+  ],
+  "electrical_parameters": {
+    "Ic_total_uA": 576.0,
+    "bias_current_uA": 172.8,
+    "operating_frequency_GHz": 50.0,
+    "power_dissipation_nW": 0.9,
+    "propagation_delay_ps": 8.5,
+    "bit_error_rate": 1e-30
+  }
+}

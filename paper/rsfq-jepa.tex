@@ -1,0 +1,81 @@
+\documentclass[11pt]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[margin=0.95in]{geometry}
+\usepackage{amsmath}
+\usepackage{booktabs}
+\usepackage{hyperref}
+
+\hypersetup{
+  colorlinks=true,
+  linkcolor=black,
+  citecolor=black,
+  urlcolor=blue
+}
+
+\title{RSFQ-JEPA: A Neural Surrogate for SPICE-Level Screening of Superconducting RSFQ Logic Cells}
+\author{Dylan Henderson, Cogitan \\ \texttt{dylan@cogitan.ai}}
+\date{}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+We present RSFQ-JEPA, a neural surrogate that predicts SPICE-level electrical properties and design-rule violations of rapid single-flux-quantum (RSFQ) logic cells directly from their layout and circuit-graph representation. Inference runs in milliseconds with calibrated per-prediction uncertainty, more than 1000x faster than SPICE per cell. RSFQ-JEPA is an honest v0, validated against JoSIM on the open ColdFlux SFQ5ee+ cell library. It is intended as a fast first-pass screen for chip-level verification and design-space search, with low-confidence predictions automatically flagged for SPICE fallback.
+\end{abstract}
+
+\section{Introduction}
+RSFQ (single-flux-quantum) verification relies on SPICE-class simulation, typically JoSIM \cite{josim}, to confirm functional correctness and to extract operating margins for each cell. A single cell margin simulation takes minutes. That cost does not scale to chip-level screening or to design-space search, where thousands of cell variants must be evaluated. A fast, uncertainty-aware surrogate makes both screening and gradient-based exploration tractable, provided it reports honestly when it is uncertain.
+
+\section{Approach}
+RSFQ-JEPA uses a hierarchical JEPA (joint-embedding predictive architecture) \cite{jepa} backbone that combines a graph neural network over the cell's circuit graph with a vision transformer over the cell's layout raster, joined by cross-attention. The model has 297.5M parameters and 17 prediction heads covering propagation delay, peak current, functional correctness, design-rule violations, and operating margins. Each head produces a per-prediction uncertainty estimate via MC-dropout with split-conformal calibration, so that every output carries a calibrated bound.
+
+The model is trained on the open ColdFlux SFQ5ee+ cell library from Stellenbosch University \cite{coldflux}, using JoSIM-generated ground-truth labels and evaluated against the MIT-LL SFQ5ee+ design rules \cite{mitll}. We describe the method at a high level here; the focus of this note is the validated accuracy and speed of the resulting surrogate.
+
+\section{Results}
+Table~\ref{tab:results} reports accuracy on held-out cells against JoSIM ground truth.
+
+\begin{table}[h]
+\centering
+\caption{Held-out accuracy of RSFQ-JEPA against JoSIM ground truth on the ColdFlux SFQ5ee+ cell library.}
+\label{tab:results}
+\begin{tabular}{@{}ll@{}}
+\toprule
+Quantity & Result \\
+\midrule
+Propagation delay & 14 ps RMSE \\
+Peak current & 2 uA RMSE \\
+Functional classification & approximately 100\% \\
+Design-rule-violation detection & 99.2\% \\
+Margin heads (Ic margin, bias margin, max frequency) & 3 to 4\% MAE \\
+Conformal coverage ($\alpha = 0.1$) & at least 89\% \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+RSFQ-JEPA is more than 1000x faster than a JoSIM cell simulation per cell: warm inference takes about 0.2 s versus minutes for JoSIM. Every prediction carries a calibrated 1-sigma bound, and low-confidence predictions auto-flag for SPICE fallback, so the surrogate is used as a screen rather than a replacement for the oracle.
+
+\section{Limitations}
+This is a v0. The reported accuracy is surrogate-versus-oracle (versus JoSIM), not fab-calibrated or silicon-validated. The model predicts cell properties; it does not design cells. Its scope is the SFQ5ee+ cell family.
+
+\section{Availability}
+A live interactive demo is at \url{https://demo.cogitan.ai}. Access and a technical brief are available on request (\texttt{dylan@cogitan.ai}). Model weights are not publicly released. RSFQ-JEPA is the deep-screening engine behind Cogitan's Fluxus superconducting design suite.
+
+\begin{thebibliography}{9}
+
+\bibitem{josim}
+J. Delport et al., JoSIM, a superconducting circuit simulator.
+
+\bibitem{coldflux}
+L. Schindler, T. Hall, and C. Fourie, ColdFlux RSFQlib, Stellenbosch University.
+
+\bibitem{jepa}
+Y. LeCun, A Path Towards Autonomous Machine Intelligence: the Joint-Embedding Predictive Architecture (JEPA).
+
+\bibitem{mitll}
+S. Tolpygo et al., MIT Lincoln Laboratory SFQ5ee+ fabrication process.
+
+\end{thebibliography}
+
+\end{document}
