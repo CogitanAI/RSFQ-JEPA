@@ -22,7 +22,7 @@
 \maketitle
 
 \begin{abstract}
-We present RSFQ-JEPA, a neural surrogate that predicts SPICE-level electrical properties and design-rule violations of rapid single-flux-quantum (RSFQ) logic cells directly from their layout and circuit-graph representation. Inference runs in milliseconds with calibrated per-prediction uncertainty, more than 1000x faster than SPICE per cell. RSFQ-JEPA is an honest v0, validated against JoSIM on the open ColdFlux SFQ5ee+ cell library. It is intended as a fast first-pass screen for chip-level verification and design-space search, with low-confidence predictions automatically flagged for SPICE fallback.
+We present RSFQ-JEPA, a neural surrogate that predicts SPICE-level electrical properties and design-rule violations of rapid single-flux-quantum (RSFQ) logic cells directly from their layout and circuit-graph representation. Inference runs in milliseconds with calibrated per-prediction uncertainty, roughly 1,000x to 3,000x faster than SPICE per cell. RSFQ-JEPA is an honest v0, validated against JoSIM on the open ColdFlux SFQ5ee+ cell library. It is intended as a fast first-pass screen for chip-level verification and design-space search, with low-confidence predictions automatically flagged for SPICE fallback.
 \end{abstract}
 
 \section{Introduction}
@@ -34,7 +34,7 @@ RSFQ-JEPA uses a hierarchical JEPA (joint-embedding predictive architecture) \ci
 The model is trained on the open ColdFlux SFQ5ee+ cell library from Stellenbosch University \cite{coldflux}, using JoSIM-generated ground-truth labels and evaluated against the MIT-LL SFQ5ee+ design rules \cite{mitll}. We describe the method at a high level here; the focus of this note is the validated accuracy and speed of the resulting surrogate.
 
 \section{Results}
-Table~\ref{tab:results} reports accuracy on held-out cells against JoSIM ground truth.
+Table~\ref{tab:results} reports accuracy on held-out cells against JoSIM ground truth. We tabulate the heads with direct JoSIM ground truth; the remaining heads are bounded scores or quantities learned from analytic oracles, which lack a single-number JoSIM RMSE and are not listed here.
 
 \begin{table}[h]
 \centering
@@ -54,7 +54,7 @@ Conformal coverage ($\alpha = 0.1$) & at least 89\% \\
 \end{tabular}
 \end{table}
 
-RSFQ-JEPA is more than 1000x faster than a JoSIM cell simulation per cell: warm inference takes about 0.2 s versus minutes for JoSIM. Every prediction carries a calibrated 1-sigma bound, and low-confidence predictions auto-flag for SPICE fallback, so the surrogate is used as a screen rather than a replacement for the oracle.
+RSFQ-JEPA is roughly 1,000x to 3,000x faster than a JoSIM cell simulation per cell: warm inference takes about 0.2 s, versus several minutes for a JoSIM margin characterization. Every prediction carries a calibrated 1-sigma bound, and low-confidence predictions auto-flag for SPICE fallback, so the surrogate is used as a screen rather than a replacement for the oracle.
 
 \section{Limitations}
 This is a v0. The reported accuracy is surrogate-versus-oracle (versus JoSIM), not fab-calibrated or silicon-validated. The model predicts cell properties; it does not design cells. Its scope is the SFQ5ee+ cell family.

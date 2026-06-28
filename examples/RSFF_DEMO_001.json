@@ -1,7 +1,7 @@
 {
   "cell_id": "RSFF_DEMO_001",
   "cell_type": "RSFF",
-  "source_pdk": "ColdFlux",
+  "source_pdk": "MIT-LL SFQ5ee+",
   "physical_stack": {
     "process_node": "MIT-LL SFQ5ee+ 250nm",
     "bounding_box_um": {

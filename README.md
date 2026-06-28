@@ -18,7 +18,9 @@ This is a v0 surrogate. It is validated against an oracle (JoSIM), not against s
 | Design-rule-violation detection | 99.2% |
 | JoSIM-calibrated margin heads (Ic margin, bias margin, max frequency) | 3 to 4% MAE |
 | Conformal coverage (alpha = 0.1) | at least 89% |
-| Speed | over 1000x faster than SPICE/JoSIM per cell |
+| Speed | roughly 1,000x to 3,000x faster than SPICE/JoSIM per cell |
+
+Only the heads with direct JoSIM ground truth are tabulated above. The remaining heads are bounded scores or quantities learned from analytic oracles, which do not have a single-number JoSIM RMSE.
 
 ## Architecture
 
