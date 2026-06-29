@@ -4,7 +4,7 @@ A neural surrogate that predicts SPICE-level electrical properties and design-ru
 
 ## What it is
 
-RSFQ-JEPA takes a Rapid Single Flux Quantum (RSFQ) logic cell, described by its layout raster and circuit graph, and predicts the electrical behavior you would otherwise get from a SPICE-class simulator, in milliseconds. It is the deep-screening engine behind Fluxus, the superconducting design suite from Cogitan. The model returns 17 predicted properties together with calibrated uncertainty, so you can triage a large cell library quickly and decide which cells warrant a full simulation.
+RSFQ-JEPA takes a Rapid Single Flux Quantum (RSFQ) logic cell, described by its layout raster and circuit graph, and predicts the electrical behavior you would otherwise get from a SPICE-class simulator, in milliseconds. It is the deep-screening engine behind Fluxus, the superconducting design suite from [Cogitan](https://cogitan.ai). The model returns 17 predicted properties together with calibrated uncertainty, so you can triage a large cell library quickly and decide which cells warrant a full simulation.
 
 This is a v0 surrogate. It is validated against an oracle (JoSIM), not against silicon. See [Limitations](#limitations).
 
@@ -35,6 +35,7 @@ The model has 297.5M parameters and 17 prediction heads. Uncertainty is estimate
 
 ## Use it
 
+- Website: [cogitan.ai](https://cogitan.ai) — Cogitan, and the Fluxus superconducting design suite.
 - Live demo: [demo.cogitan.ai](https://demo.cogitan.ai).
 - Programmatic use: see [usage/predict_example.py](usage/predict_example.py) for a thin client that POSTs a cell to the inference API and prints the predictions.
 - Access: an API endpoint and key are provided on request. Email dylan@cogitan.ai.
